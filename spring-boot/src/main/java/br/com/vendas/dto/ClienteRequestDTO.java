@@ -9,11 +9,23 @@ public class ClienteRequestDTO {
     @NotNull(message = "O nome não pode ser nulo ou vazio")
     private String nome;
 
+    @Size(min = 11, max = 11, message = "O CPF deve conter 11 digitos ")
+    @NotNull(message = "O CPF não pode ser nulo ou vazio")
+    private String cpf;
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

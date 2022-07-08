@@ -15,7 +15,14 @@ public class ClienteService {
     private ClienteRepository repository;
 
     public Cliente cadastrarCliente(Cliente cliente) {
+        validarCPF(cliente.getCpf());
         return repository.save(cliente);
+    }
+
+    private void validarCPF(String cpf) {
+        if (repository.existsByCpf(cpf)) {
+            throw new ExceptionPersonalizada("erro:", "CPF já existente");
+        }
     }
 
     public Cliente buscarPorId(Integer id) {
@@ -28,6 +35,9 @@ public class ClienteService {
 
     public Cliente atualizarCliente(Cliente cliente) {
         Cliente clienteAtualizado = buscarPorId(cliente.getId());
+        if (!cliente.getCpf().equalsIgnoreCase(clienteAtualizado.getCpf())){
+            throw new ExceptionPersonalizada("eroo:", "O CPF não pode ser alterado.");
+        }
         clienteAtualizado.setNome(cliente.getNome());
         return repository.save(clienteAtualizado);
     }
