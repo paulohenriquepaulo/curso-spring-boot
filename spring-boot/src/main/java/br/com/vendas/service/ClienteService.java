@@ -4,8 +4,11 @@ import br.com.vendas.exception.ExceptionPersonalizada;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.repostory.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,4 +49,13 @@ public class ClienteService {
         repository.delete(cliente);
     }
 
+    public List<Cliente> buscarClientes(Cliente cliente) {
+            ExampleMatcher matcher = ExampleMatcher
+                    .matching()
+                    .withIgnoreCase()
+                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+            Example example = Example.of(cliente, matcher);
+            List<Cliente> clienteList = repository.findAll(example);
+            return clienteList;
+    }
 }
