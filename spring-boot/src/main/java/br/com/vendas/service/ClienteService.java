@@ -53,7 +53,8 @@ public class ClienteService {
             ExampleMatcher matcher = ExampleMatcher
                     .matching()
                     .withIgnoreCase()
-                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+                    .withStringMatcher(
+                            ExampleMatcher.StringMatcher.CONTAINING);
             Example example = Example.of(cliente, matcher);
             List<Cliente> clienteList = repository.findAll(example);
             return clienteList;

@@ -1,5 +1,6 @@
 package br.com.vendas.controller;
 
+import br.com.vendas.dto.ClienteBuscarDTO;
 import br.com.vendas.dto.ClienteRequestDTO;
 import br.com.vendas.dto.ClienteResponseDTO;
 import br.com.vendas.dto.ClienteResquestAtualizarDto;
@@ -49,8 +50,8 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity buscarCliente(Cliente cliente) {
-        List<Cliente> clienteList = service.buscarClientes(cliente);
+    public ResponseEntity buscarCliente(ClienteBuscarDTO clienteBuscarDTO) {
+        List<Cliente> clienteList = service.buscarClientes(mapper.toCliente(clienteBuscarDTO));
         return ResponseEntity.ok(clienteList);
     }
 

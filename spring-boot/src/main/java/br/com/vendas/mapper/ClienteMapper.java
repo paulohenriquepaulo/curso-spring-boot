@@ -1,5 +1,6 @@
 package br.com.vendas.mapper;
 
+import br.com.vendas.dto.ClienteBuscarDTO;
 import br.com.vendas.dto.ClienteRequestDTO;
 import br.com.vendas.dto.ClienteResponseDTO;
 import br.com.vendas.dto.ClienteResquestAtualizarDto;
@@ -10,10 +11,10 @@ import org.mapstruct.Mapper;
 public interface ClienteMapper {
 
     Cliente toCliente(ClienteRequestDTO clienteDTO);
+    Cliente toCliente(ClienteBuscarDTO clienteBuscarDTO);
 
     Cliente toCliente(ClienteResquestAtualizarDto clienteResquestAtualizarDto);
 
     ClienteResponseDTO toClienteResponseDto(Cliente cliente);
-
 
 }
