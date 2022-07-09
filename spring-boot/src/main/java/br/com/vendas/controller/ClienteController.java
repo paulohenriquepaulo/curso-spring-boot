@@ -38,8 +38,8 @@ public class ClienteController {
 
     @PutMapping
     public ResponseEntity<ClienteResponseDTO> atualizarCliente(@RequestBody @Valid ClienteResquestAtualizarDto clienteDTO) {
-        Cliente novoCliente = service.atualizarCliente(mapper.toCliente(clienteDTO));
-        return ResponseEntity.ok(mapper.toClienteResponseDto(novoCliente));
+        Cliente clienteAtualizado = service.atualizarCliente(mapper.toCliente(clienteDTO));
+        return ResponseEntity.ok(mapper.toClienteResponseDto(clienteAtualizado));
     }
 
 

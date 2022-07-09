@@ -13,4 +13,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     Cliente findClienteFetchPedidos(@Param("id") Integer id);
 
     boolean existsByCpf(String cpf);
+
 }

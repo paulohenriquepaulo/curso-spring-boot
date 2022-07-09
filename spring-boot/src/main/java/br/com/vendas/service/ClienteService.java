@@ -1,6 +1,7 @@
 package br.com.vendas.service;
 
 import br.com.vendas.exception.ExceptionPersonalizada;
+import br.com.vendas.mapper.ClienteMapper;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.repostory.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    @Autowired
+    private ClienteMapper mapper;
+
     public Cliente cadastrarCliente(Cliente cliente) {
         validarCPF(cliente.getCpf());
         return repository.save(cliente);
@@ -29,19 +33,17 @@ public class ClienteService {
     }
 
     public Cliente buscarPorId(Integer id) {
-        Optional<Cliente> cliente = repository.findById(id);
-        if (!cliente.isPresent()) {
-            throw new ExceptionPersonalizada("erro:", "Id invalido");
-        }
-        return cliente.get();
+        Cliente cliente = repository.findById(id)
+                .orElseThrow(() -> new ExceptionPersonalizada("mensagem", "ID não encotrado."));
+        return cliente;
     }
 
     public Cliente atualizarCliente(Cliente cliente) {
         Cliente clienteAtualizado = buscarPorId(cliente.getId());
-        if (!cliente.getCpf().equalsIgnoreCase(clienteAtualizado.getCpf())){
-            throw new ExceptionPersonalizada("eroo:", "O CPF não pode ser alterado.");
+        if (!clienteAtualizado.getCpf().equalsIgnoreCase(cliente.getCpf())) {
+            throw new ExceptionPersonalizada("mensagem", "O CPF não pode ser alterado.");
         }
-        clienteAtualizado.setNome(cliente.getNome());
+        clienteAtualizado = mapper.toCliente(cliente);
         return repository.save(clienteAtualizado);
     }
     public void deletarCliente(Integer id) {
