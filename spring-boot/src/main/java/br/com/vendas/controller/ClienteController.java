@@ -8,10 +8,12 @@ import br.com.vendas.mapper.ClienteMapper;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,7 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<ClienteResponseDTO> cadastrarCliente(@RequestBody @Valid ClienteRequestDTO clienteDTO) {
         Cliente novoCliente = service.cadastrarCliente(mapper.toCliente(clienteDTO));
-        return ResponseEntity.ok(mapper.toClienteResponseDto(novoCliente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toClienteResponseDto(novoCliente));
     }
 
     @GetMapping("/{id}")

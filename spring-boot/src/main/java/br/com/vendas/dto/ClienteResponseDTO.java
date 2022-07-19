@@ -2,10 +2,11 @@ package br.com.vendas.dto;
 
 public class ClienteResponseDTO {
 
-
     private Integer id;
 
     private String nome;
+
+    private String cpf;
 
     public Integer getId() {
         return id;
@@ -21,5 +22,13 @@ public class ClienteResponseDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
