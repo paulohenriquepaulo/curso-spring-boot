@@ -1,15 +1,11 @@
-package br.com.vendas.model;
+package br.com.vendas.dto.produto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Entity
-public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class ProdutoRequestDTO {
 
     @NotNull(message = "Descrção obrigatoria")
     private String descricao;
@@ -17,15 +13,6 @@ public class Produto {
     @NotNull(message = "Preço obrigatorio")
     @Column(name = "preco_unitario")
     private BigDecimal preco;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getDescricao() {
         return descricao;

@@ -1,4 +1,4 @@
-package br.com.vendas.dto;
+package br.com.vendas.dto.cliente;
 
 public class ClienteResquestAtualizarDto extends  ClienteRequestDTO {
 

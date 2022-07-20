@@ -1,23 +1,13 @@
-package br.com.vendas.model;
+package br.com.vendas.dto.produto;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Entity
-public class Produto {
+public class ProdutoResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @NotNull(message = "Descrção obrigatoria")
     private String descricao;
 
-    @NotNull(message = "Preço obrigatorio")
-    @Column(name = "preco_unitario")
     private BigDecimal preco;
-
 
     public Integer getId() {
         return id;

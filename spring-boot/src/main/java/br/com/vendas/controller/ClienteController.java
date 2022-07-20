@@ -1,9 +1,9 @@
 package br.com.vendas.controller;
 
-import br.com.vendas.dto.ClienteBuscarDTO;
-import br.com.vendas.dto.ClienteRequestDTO;
-import br.com.vendas.dto.ClienteResponseDTO;
-import br.com.vendas.dto.ClienteResquestAtualizarDto;
+import br.com.vendas.dto.cliente.ClienteBuscarDTO;
+import br.com.vendas.dto.cliente.ClienteRequestDTO;
+import br.com.vendas.dto.cliente.ClienteResponseDTO;
+import br.com.vendas.dto.cliente.ClienteResquestAtualizarDto;
 import br.com.vendas.mapper.ClienteMapper;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.service.ClienteService;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController

@@ -1,4 +1,4 @@
-package br.com.vendas.dto;
+package br.com.vendas.dto.cliente;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

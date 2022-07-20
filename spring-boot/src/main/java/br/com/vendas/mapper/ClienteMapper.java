@@ -1,9 +1,9 @@
 package br.com.vendas.mapper;
 
-import br.com.vendas.dto.ClienteBuscarDTO;
-import br.com.vendas.dto.ClienteRequestDTO;
-import br.com.vendas.dto.ClienteResponseDTO;
-import br.com.vendas.dto.ClienteResquestAtualizarDto;
+import br.com.vendas.dto.cliente.ClienteBuscarDTO;
+import br.com.vendas.dto.cliente.ClienteRequestDTO;
+import br.com.vendas.dto.cliente.ClienteResponseDTO;
+import br.com.vendas.dto.cliente.ClienteResquestAtualizarDto;
 import br.com.vendas.model.Cliente;
 import org.mapstruct.Mapper;
 
