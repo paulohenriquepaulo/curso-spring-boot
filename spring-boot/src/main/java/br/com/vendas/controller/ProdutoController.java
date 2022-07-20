@@ -1,5 +1,6 @@
 package br.com.vendas.controller;
 
+import br.com.vendas.dto.produto.ProdutoBuscarDTO;
 import br.com.vendas.dto.produto.ProdutoRequestDTO;
 import br.com.vendas.dto.produto.ProdutoResponseDTO;
 import br.com.vendas.dto.produto.ProdutoResquestAtualizarDTO;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/produto")
@@ -47,6 +49,13 @@ public class ProdutoController {
     public ResponseEntity deletarProdutoPorId(@PathVariable Integer id) {
         service.deletarProduto(id);
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<?> buscarProdutoPorCriterio(ProdutoBuscarDTO produtoBuscarDTO) {
+        List<Produto>  produtoDTOList = service.buscarProdutoPorCriterio(mapper.toProduto(produtoBuscarDTO));
+        List<ProdutoResponseDTO> produtoResponseDTOS = mapper.toProdutoResponseDTO(produtoDTOList);
+        return ResponseEntity.ok(produtoResponseDTOS);
     }
 
 }
