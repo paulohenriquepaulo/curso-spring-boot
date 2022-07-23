@@ -6,7 +6,7 @@ import br.com.vendas.dto.cliente.ClienteResponseDTO;
 import br.com.vendas.dto.cliente.ClienteResquestAtualizarDto;
 import br.com.vendas.mapper.ClienteMapper;
 import br.com.vendas.model.Cliente;
-import br.com.vendas.service.ClienteService;
+import br.com.vendas.service.impl.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class ClienteController {
     private ClienteMapper mapper;
 
     @Autowired
-    private ClienteService service;
+    private ClienteServiceImpl service;
 
     @PostMapping
     public ResponseEntity<ClienteResponseDTO> cadastrarCliente(@RequestBody @Valid ClienteRequestDTO clienteDTO) {

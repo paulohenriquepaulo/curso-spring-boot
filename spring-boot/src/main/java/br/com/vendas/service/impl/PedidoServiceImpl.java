@@ -29,12 +29,13 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido salvarPedido(PedidoDTO pedidoDTO) {
-        Pedido pedido = new Pedido();
+        Cliente cliente = getCliente(pedidoDTO.getId_cliente());
         validarProduto(pedidoDTO.getPedidos());
+        Pedido pedido = new Pedido();
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setDataPedido(LocalDate.now());
-        Cliente cliente = getCliente(pedidoDTO.getId_cliente());
         pedido.setCliente(cliente);
+
         return pedidoRepository.save(pedido);
     }
 
@@ -59,7 +60,7 @@ public class PedidoServiceImpl implements PedidoService {
      */
     private void validarProduto(List<ItemPedidoDTO> pedidos) {
         pedidos.forEach(p -> produtoRepository.findById(p.getId_produto())
-                .orElseThrow(() -> new  ExceptionPersonalizada("mensagem", "Produto " + p.getId_produto() + " cadastrado")));
+                .orElseThrow(() -> new  ExceptionPersonalizada("mensagem", "Produto " + p.getId_produto() + " não cadastrado")));
 
     }
 }

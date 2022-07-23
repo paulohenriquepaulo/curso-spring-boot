@@ -1,19 +1,19 @@
-package br.com.vendas.service;
+package br.com.vendas.service.impl;
 
 import br.com.vendas.exception.ExceptionPersonalizada;
 import br.com.vendas.mapper.ClienteMapper;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.repostory.ClienteRepository;
+import br.com.vendas.service.ClienteServece;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ClienteService {
+public class ClienteServiceImpl implements ClienteServece {
 
     @Autowired
     private ClienteRepository repository;
@@ -21,6 +21,7 @@ public class ClienteService {
     @Autowired
     private ClienteMapper mapper;
 
+    @Override
     public Cliente cadastrarCliente(Cliente cliente) {
         validarCPF(cliente.getCpf());
         return repository.save(cliente);
@@ -32,12 +33,14 @@ public class ClienteService {
         }
     }
 
+    @Override
     public Cliente buscarPorId(Integer id) {
         Cliente cliente = repository.findById(id)
                 .orElseThrow(() -> new ExceptionPersonalizada("mensagem", "ID não encotrado."));
         return cliente;
     }
 
+    @Override
     public Cliente atualizarCliente(Cliente cliente) {
         Cliente clienteAtualizado = buscarPorId(cliente.getId());
         if (!clienteAtualizado.getCpf().equalsIgnoreCase(cliente.getCpf())) {
@@ -46,11 +49,14 @@ public class ClienteService {
         clienteAtualizado = mapper.toCliente(cliente);
         return repository.save(clienteAtualizado);
     }
+
+    @Override
     public void deletarCliente(Integer id) {
         Cliente cliente = buscarPorId(id);
         repository.delete(cliente);
     }
 
+    @Override
     public List<Cliente> buscarClientes(Cliente cliente) {
             ExampleMatcher matcher = ExampleMatcher
                     .matching()

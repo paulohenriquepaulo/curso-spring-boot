@@ -6,7 +6,7 @@ import br.com.vendas.dto.produto.ProdutoResponseDTO;
 import br.com.vendas.dto.produto.ProdutoResquestAtualizarDTO;
 import br.com.vendas.mapper.ProdutoMapper;
 import br.com.vendas.model.Produto;
-import br.com.vendas.service.ProdutoService;
+import br.com.vendas.service.impl.ProdutoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ProdutoController {
 
 
     @Autowired
-    private ProdutoService service;
+    private ProdutoServiceImpl service;
 
     @Autowired
     private ProdutoMapper mapper;

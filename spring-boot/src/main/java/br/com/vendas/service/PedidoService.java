@@ -5,4 +5,5 @@ import br.com.vendas.model.Pedido;
 
 public interface PedidoService {
     Pedido salvarPedido(PedidoDTO pedidoDTO);
+
 }
