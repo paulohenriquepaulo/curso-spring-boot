@@ -1,9 +1,5 @@
 package br.com.vendas.dto.pedido;
 
-import br.com.vendas.model.Pedido;
-
-import javax.validation.constraints.Size;
-
 public class ItemPedidoDTO {
 
     private Integer id_produto;

@@ -1,15 +1,15 @@
 package br.com.vendas.controller;
 
+import br.com.vendas.dto.cliente.ClienteResponseDTO;
 import br.com.vendas.dto.pedido.PedidoRequestDTO;
+import br.com.vendas.dto.pedido.PedidoResponseDTO;
+import br.com.vendas.model.Cliente;
 import br.com.vendas.model.Pedido;
 import br.com.vendas.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,5 +28,10 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(pedido.getId());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PedidoResponseDTO> buscarPedidoPorId(@PathVariable Integer id) {
+        PedidoResponseDTO dto = pedidoService.recuperarPedido(id);
+        return ResponseEntity.ok(dto);
+    }
 
 }
