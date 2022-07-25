@@ -1,7 +1,6 @@
 package br.com.vendas.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @Entity
 public class ItemPedido {
@@ -11,14 +10,13 @@ public class ItemPedido {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @Size(min = 1, message = "Precisa ter no minimo 1 pedido")
     private Integer quantidade;
 
     public Integer getId() {
@@ -52,4 +50,7 @@ public class ItemPedido {
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
+
+
 }

@@ -1,19 +1,24 @@
 package br.com.vendas.service.impl;
 
 import br.com.vendas.dto.pedido.ItemPedidoDTO;
-import br.com.vendas.dto.pedido.PedidoDTO;
+import br.com.vendas.dto.pedido.PedidoRequestDTO;
 import br.com.vendas.exception.ExceptionPersonalizada;
+import br.com.vendas.mapper.PedidoMapper;
 import br.com.vendas.model.Cliente;
+import br.com.vendas.model.ItemPedido;
 import br.com.vendas.model.Pedido;
 import br.com.vendas.repostory.ClienteRepository;
+import br.com.vendas.repostory.ItemPedidoRepository;
 import br.com.vendas.repostory.PedidoRepository;
 import br.com.vendas.repostory.ProdutoRepository;
 import br.com.vendas.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidoServiceImpl implements PedidoService {
@@ -27,17 +32,28 @@ public class PedidoServiceImpl implements PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private ProdutoServiceImpl produtoService;
+
     @Override
-    public Pedido salvarPedido(PedidoDTO pedidoDTO) {
-        Cliente cliente = getCliente(pedidoDTO.getId_cliente());
-        validarProduto(pedidoDTO.getPedidos());
+    @Transactional
+    public Pedido salvarPedido(PedidoRequestDTO pedidoRequestDTO) {
+        Cliente cliente = getCliente(pedidoRequestDTO.getId_cliente());
+        validarProduto(pedidoRequestDTO.getPedidos());
         Pedido pedido = new Pedido();
-        pedido.setTotal(pedidoDTO.getTotal());
+        pedido.setTotal(pedidoRequestDTO.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
-
-        return pedidoRepository.save(pedido);
+        List<ItemPedido> itemPedidos = converterItems(pedido, pedidoRequestDTO.getPedidos());
+        pedido.setPedidos(itemPedidos);
+        itemPedidoRepository.saveAll(itemPedidos);
+        pedidoRepository.save(pedido);
+        return pedido;
     }
+
 
     /**
      * Método para pega um cliente, caso cliente não seja
@@ -63,4 +79,21 @@ public class PedidoServiceImpl implements PedidoService {
                 .orElseThrow(() -> new  ExceptionPersonalizada("mensagem", "Produto " + p.getId_produto() + " não cadastrado")));
 
     }
+
+    private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> itemsPedidoDTOS) {
+        if (itemsPedidoDTOS.isEmpty()) {
+            throw new ExceptionPersonalizada("mensagem", "Não é possivel realizar um pedido sem intens.");
+        }
+        return itemsPedidoDTOS
+                .stream()
+                .map(dto -> {
+                    ItemPedido itemPedido = new ItemPedido();
+                    itemPedido.setQuantidade(dto.getQuantidade());
+                    itemPedido.setPedido(pedido);
+                    itemPedido.setProduto(produtoService.buscarPorId(dto.getId_produto()));
+                    return itemPedido;
+                }).collect(Collectors.toList());
+    }
+
+
 }
