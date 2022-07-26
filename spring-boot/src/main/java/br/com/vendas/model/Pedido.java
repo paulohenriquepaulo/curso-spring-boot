@@ -1,5 +1,7 @@
 package br.com.vendas.model;
 
+import br.com.vendas.model.enums.StatusPedido;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,6 +23,10 @@ public class Pedido {
 
     @Column(precision = 20, scale = 2)
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusPedido statusPedido;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> pedidos;
@@ -63,5 +69,13 @@ public class Pedido {
 
     public void setPedidos(List<ItemPedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
     }
 }

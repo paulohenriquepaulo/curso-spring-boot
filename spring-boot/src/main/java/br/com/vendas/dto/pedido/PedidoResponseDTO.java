@@ -1,6 +1,9 @@
 package br.com.vendas.dto.pedido;
 
+import br.com.vendas.model.enums.StatusPedido;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public class PedidoResponseDTO {
@@ -12,6 +15,10 @@ public class PedidoResponseDTO {
     private String nomeCliente;
 
     private BigDecimal total;
+
+    private LocalDate dataPedido;
+
+    private StatusPedido statusPedido;
 
     private List<InformacaoIntemPedido> items;
 
@@ -55,4 +62,19 @@ public class PedidoResponseDTO {
         this.items = items;
     }
 
+    public LocalDate getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(LocalDate dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
+    }
 }
