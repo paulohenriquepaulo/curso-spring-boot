@@ -116,6 +116,18 @@ public class PedidoServiceImpl implements PedidoService {
         return dto;
     }
 
+    @Override
+    public void cancelarPedido(Integer id_pedido) {
+        validarIdPedido(id_pedido);
+        Pedido p = pedidoRepository.getOne(id_pedido);
+        if (p.getStatusPedido().equals(StatusPedido.REALIZADO)) {
+            p.setStatusPedido(StatusPedido.CANCELADO);
+        } else {
+            throw new ExceptionPersonalizada("mensagem", "Este pedido já foi canclado");
+        }
+        pedidoRepository.save(p);
+    }
+
     private List<InformacaoIntemPedido> recuperarInformacoesPedido(Integer id_pedido) {
         List<InformacaoIntemPedido> informacaoIntemPedido = new ArrayList<>();
         List<ItemPedido> itemPedidos = itemPedidoRepository.findByIdPedido(id_pedido);

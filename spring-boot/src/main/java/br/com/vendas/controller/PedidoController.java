@@ -1,9 +1,7 @@
 package br.com.vendas.controller;
 
-import br.com.vendas.dto.cliente.ClienteResponseDTO;
 import br.com.vendas.dto.pedido.PedidoRequestDTO;
 import br.com.vendas.dto.pedido.PedidoResponseDTO;
-import br.com.vendas.model.Cliente;
 import br.com.vendas.model.Pedido;
 import br.com.vendas.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,12 @@ public class PedidoController {
     public ResponseEntity<PedidoResponseDTO> buscarPedidoPorId(@PathVariable Integer id) {
         PedidoResponseDTO dto = pedidoService.recuperarPedido(id);
         return ResponseEntity.ok(dto);
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity cancelarPedido(@PathVariable Integer id) {
+        pedidoService.cancelarPedido(id);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -9,4 +9,6 @@ public interface PedidoService {
 
     PedidoResponseDTO recuperarPedido(Integer id_pedido);
 
+    void cancelarPedido(Integer id_pedido);
+
 }
