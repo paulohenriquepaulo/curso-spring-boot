@@ -123,7 +123,7 @@ public class PedidoServiceImpl implements PedidoService {
         if (p.getStatusPedido().equals(StatusPedido.REALIZADO)) {
             p.setStatusPedido(StatusPedido.CANCELADO);
         } else {
-            throw new ExceptionPersonalizada("mensagem", "Este pedido já foi canclado");
+            throw new ExceptionPersonalizada("mensagem", "Este pedido já foi cancelado");
         }
         pedidoRepository.save(p);
     }

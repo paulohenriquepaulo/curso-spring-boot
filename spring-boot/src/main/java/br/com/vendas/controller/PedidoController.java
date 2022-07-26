@@ -35,7 +35,7 @@ public class PedidoController {
     @PatchMapping("{id}")
     public ResponseEntity cancelarPedido(@PathVariable Integer id) {
         pedidoService.cancelarPedido(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
