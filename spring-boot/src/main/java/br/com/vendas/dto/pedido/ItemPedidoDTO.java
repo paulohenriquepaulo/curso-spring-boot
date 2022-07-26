@@ -1,11 +1,13 @@
 package br.com.vendas.dto.pedido;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ItemPedidoDTO {
 
+    @NotNull(message = "O id do produto não pode ser nulo ou vazio.")
     private Integer id_produto;
-
-    private Integer id_pedido;
-
+    @Size(min = 1, message = "A quantidade precisa ser no minimo 1")
     private Integer quantidade;
 
     public Integer getId_produto() {
@@ -24,11 +26,4 @@ public class ItemPedidoDTO {
         this.quantidade = quantidade;
     }
 
-    public Integer getId_pedido() {
-        return id_pedido;
-    }
-
-    public void setId_pedido(Integer id_pedido) {
-        this.id_pedido = id_pedido;
-    }
 }

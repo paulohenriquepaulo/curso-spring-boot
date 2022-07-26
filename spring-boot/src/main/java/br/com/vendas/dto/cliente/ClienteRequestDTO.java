@@ -1,5 +1,7 @@
 package br.com.vendas.dto.cliente;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -9,7 +11,7 @@ public class ClienteRequestDTO {
     @NotNull(message = "O nome não pode ser nulo ou vazio")
     private String nome;
 
-    @Size(min = 11, max = 11, message = "O CPF deve conter 11 digitos ")
+    @CPF(message = "O Cpf precisa ser valido")
     @NotNull(message = "O CPF não pode ser nulo ou vazio")
     private String cpf;
 

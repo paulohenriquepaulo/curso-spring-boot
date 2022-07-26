@@ -1,6 +1,7 @@
 package br.com.vendas.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -11,7 +12,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Descrção obrigatoria")
+    @NotEmpty(message = "Descrção obrigatoria")
     private String descricao;
 
     @NotNull(message = "Preço obrigatorio")

@@ -2,12 +2,13 @@ package br.com.vendas.dto.produto;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class ProdutoRequestDTO {
 
-    @NotNull(message = "Descrção obrigatoria")
+    @NotEmpty(message = "Descrção obrigatoria")
     private String descricao;
 
     @NotNull(message = "Preço obrigatorio")
