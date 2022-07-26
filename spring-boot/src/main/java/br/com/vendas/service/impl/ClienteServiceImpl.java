@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,6 +38,7 @@ public class ClienteServiceImpl implements ClienteServece {
     public Cliente buscarPorId(Integer id) {
         Cliente cliente = repository.findById(id)
                 .orElseThrow(() -> new ExceptionPersonalizada("mensagem", "ID não encotrado."));
+        cliente.setPedidos(new ArrayList<>());
         return cliente;
     }
 
@@ -65,6 +67,7 @@ public class ClienteServiceImpl implements ClienteServece {
                             ExampleMatcher.StringMatcher.CONTAINING);
             Example example = Example.of(cliente, matcher);
             List<Cliente> clienteList = repository.findAll(example);
+            clienteList.forEach(c -> c.setPedidos(new ArrayList<>()));
             return clienteList;
     }
 }
