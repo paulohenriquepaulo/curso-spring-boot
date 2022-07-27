@@ -17,7 +17,7 @@ public class Produto {
 
     @NotNull(message = "Preço obrigatorio")
     @Column(name = "preco_unitario")
-    private BigDecimal preco;
+    private Double preco;
 
 
     public Integer getId() {
@@ -36,11 +36,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }

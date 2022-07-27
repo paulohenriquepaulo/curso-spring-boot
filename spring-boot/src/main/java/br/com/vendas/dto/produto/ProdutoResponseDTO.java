@@ -7,7 +7,7 @@ public class ProdutoResponseDTO {
     private Integer id;
     private String descricao;
 
-    private BigDecimal preco;
+    private Double preco;
 
     public Integer getId() {
         return id;
@@ -25,11 +25,11 @@ public class ProdutoResponseDTO {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }

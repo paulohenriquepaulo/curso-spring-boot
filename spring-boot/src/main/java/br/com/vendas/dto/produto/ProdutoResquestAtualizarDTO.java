@@ -2,7 +2,6 @@ package br.com.vendas.dto.produto;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class ProdutoResquestAtualizarDTO {
 
@@ -14,7 +13,7 @@ public class ProdutoResquestAtualizarDTO {
 
     @NotNull(message = "Preço obrigatorio")
     @Column(name = "preco_unitario")
-    private BigDecimal preco;
+    private Double preco;
 
     public Integer getId() {
         return id;
@@ -32,11 +31,11 @@ public class ProdutoResquestAtualizarDTO {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }

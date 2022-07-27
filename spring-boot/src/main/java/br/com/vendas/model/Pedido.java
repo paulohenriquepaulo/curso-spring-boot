@@ -22,7 +22,7 @@ public class Pedido {
     private LocalDate dataPedido;
 
     @Column(precision = 20, scale = 2)
-    private BigDecimal total;
+    private Double total;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -55,11 +55,11 @@ public class Pedido {
         this.dataPedido = dataPedido;
     }
 
-    public BigDecimal getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

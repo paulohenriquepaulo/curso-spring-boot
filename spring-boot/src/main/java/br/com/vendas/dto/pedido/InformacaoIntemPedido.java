@@ -6,7 +6,7 @@ public class InformacaoIntemPedido {
 
     private String descricaoProduto;
 
-    private BigDecimal precoUnitario;
+    private Double precoUnitario;
 
     private Integer quantidade;
 
@@ -18,11 +18,11 @@ public class InformacaoIntemPedido {
         this.descricaoProduto = descricaoProduto;
     }
 
-    public BigDecimal getPrecoUnitario() {
+    public Double getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(BigDecimal precoUnitario) {
+    public void setPrecoUnitario(Double precoUnitario) {
         this.precoUnitario = precoUnitario;
     }
 

@@ -2,7 +2,6 @@ package br.com.vendas.dto.pedido;
 
 import br.com.vendas.model.enums.StatusPedido;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class PedidoResponseDTO {
 
     private String nomeCliente;
 
-    private BigDecimal total;
+    private Double total;
 
     private LocalDate dataPedido;
 
@@ -46,11 +45,11 @@ public class PedidoResponseDTO {
         this.nomeCliente = nomeCliente;
     }
 
-    public BigDecimal getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

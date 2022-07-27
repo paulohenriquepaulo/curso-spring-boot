@@ -8,6 +8,7 @@ import br.com.vendas.exception.ExceptionPersonalizada;
 import br.com.vendas.model.Cliente;
 import br.com.vendas.model.ItemPedido;
 import br.com.vendas.model.Pedido;
+import br.com.vendas.model.Produto;
 import br.com.vendas.model.enums.StatusPedido;
 import br.com.vendas.repostory.ClienteRepository;
 import br.com.vendas.repostory.ItemPedidoRepository;
@@ -18,10 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +49,7 @@ public class PedidoServiceImpl implements PedidoService {
         Cliente cliente = getCliente(pedidoRequestDTO.getId_cliente());
         validarProduto(pedidoRequestDTO.getPedidos());
         Pedido pedido = new Pedido();
-        pedido.setTotal((pedidoRequestDTO.getTotal()));
+        pedido.setTotal(totalPedido(pedidoRequestDTO.getPedidos()));
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
         pedido.setStatusPedido(StatusPedido.REALIZADO);
@@ -58,6 +59,13 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoRepository.save(pedido);
         return pedido;
     }
+
+    private Double totalPedido(List<ItemPedidoDTO> pedidos) {
+        AtomicReference<Double> total = new AtomicReference<>(0.0);
+        pedidos.forEach(p -> total.updateAndGet(v -> v + (produtoService.buscarPorId(p.getId_produto()).getPreco() * p.getQuantidade())));
+        return total.get();
+    }
+
     private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> itemsPedidoDTOS) {
         if (itemsPedidoDTOS.isEmpty()) {
             throw new ExceptionPersonalizada("mensagem", "Não é possivel realizar um pedido sem intens.");
@@ -98,9 +106,6 @@ public class PedidoServiceImpl implements PedidoService {
                 .orElseThrow(() -> new ExceptionPersonalizada("mensagem", "Produto " + p.getId_produto() + " não cadastrado")));
 
     }
-
-
-
     @Override
     public PedidoResponseDTO recuperarPedido(Integer id_pedido) {
         validarIdPedido(id_pedido);
@@ -142,11 +147,9 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     private void validarIdPedido(Integer id_pedido) {
-
         if (itemPedidoRepository.findByIdPedido(id_pedido).isEmpty()) {
             throw new ExceptionPersonalizada("mensagem", "Pedido não encotrdo.");
         }
     }
-
 
 }
